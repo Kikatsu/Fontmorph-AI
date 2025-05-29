@@ -1,0 +1,196 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
+  color: #111;
+}
+
+/* Header */
+.HeaderNav {
+  width: 100%;
+  height: 73px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid rgba(102, 102, 102, 0.25);
+  z-index: 10;
+}
+
+.Logo svg {
+  width: 40px;
+  height: 40px;
+  fill: #C4C4C4;
+}
+
+.Links {
+  display: flex;
+  gap: 40px;
+  font-size: 16px;
+}
+
+.Links div {
+  color: rgba(102, 102, 102, 0.8);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.Links .Home {
+  color: #111;
+}
+
+.Links div:hover {
+  color: #111;
+}
+
+.LoginSignUp {
+  display: flex;
+  gap: 16px;
+}
+
+.Button {
+  width: 98px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.Button.outlined {
+  border: 1px solid #111;
+  background: transparent;
+  color: #111;
+}
+
+.Button.outlined:hover {
+  background: #111;
+  color: #fff;
+}
+
+.Button.filled {
+  background: #111;
+  color: white;
+  border: 1px solid #111;
+}
+
+.Button.filled:hover {
+  background: #333;
+}
+
+/* Hero Section */
+.Frame1 {
+  width: 100%;
+  padding-top: 73px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 80px;
+}
+
+.FontMorphAiToolForMissingGlyphs {
+  font-size: 64px;
+  font-family: 'Roboto Slab', serif;
+  line-height: 1.1;
+  margin: 40px auto;
+  max-width: 700px;
+}
+
+.FontMorphAiToolForMissingGlyphs span:last-child {
+  font-family: 'Sanchez', serif;
+}
+
+.Frame1 .UploadButton {
+  margin-top: 40px;
+  width: 158px;
+  height: 52px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #454545 0%, #3D383E 100%);
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.Frame1 .UploadButton:hover {
+  background: linear-gradient(180deg, #3D383E 0%, #2F2F2F 100%);
+  transform: scale(1.05);
+}
+
+.WhatIsFontMorphAi {
+  font-size: 40px;
+  margin-top: 60px;
+}
+
+.FontMorphAiIsAnIntelligentToolThatEnhancesFontsByGeneratingMissingGlyphsForDifferentLanguagesUploadYourFontAndOurAiWillCompleteTheMissingCharactersSeamlessly {
+  font-style: italic;
+  font-size: 24px;
+  font-family: 'Radio Canada', sans-serif;
+  text-decoration: underline;
+  max-width: 900px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Chevron */
+.TablerChevronDown svg {
+  width: 45px;
+  height: 25px;
+}
+
+.TablerChevronDown {
+  width: 85px;
+  height: 85px;
+  margin: 20px auto;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.TablerChevronDown:hover {
+  transform: translateY(5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .FontMorphAiToolForMissingGlyphs {
+    font-size: 36px;
+  }
+
+  .WhatIsFontMorphAi {
+    font-size: 28px;
+  }
+
+  .FontMorphAiIsAnIntelligentToolThatEnhancesFontsByGeneratingMissingGlyphsForDifferentLanguagesUploadYourFontAndOurAiWillCompleteTheMissingCharactersSeamlessly {
+    font-size: 18px;
+  }
+
+  .Links {
+    gap: 20px;
+  }
+
+  .HeaderNav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+}
