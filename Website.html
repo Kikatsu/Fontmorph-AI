@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fontmorph-AI | AI-Powered Font Completion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module" src="register.js" defer> </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            color: #2d2d2d;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #2d2d2d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: #6366f1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a4a4a;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #6366f1;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #6366f1;
+            color: #6366f1;
+        }
+
+        .btn-outline:hover {
+            background: #6366f1;
+            color: white;
+        }
+
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #6366f1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+            color: #4b5563;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 5%;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid #f1f5f9;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: #e0e7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: #6366f1;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .upload-zone {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 600px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .upload-zone:hover {
+            border-color: #6366f1;
+            background: #f0f9ff;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        /* Auth Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            animation: scaleUp 0.4s ease forwards;
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: #1e293b;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #6366f1;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: #6366f1;
+            border-bottom: 3px solid #6366f1;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .google-auth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+        }
+
+        .google-auth:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .form-footer a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* User Profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: #334155;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleUp {
+            to { transform: scale(1); }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .upload-zone {
+                padding: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-font logo-icon"></i>
+            Fontmorph-AI
+        </div>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#upload">Upload</a>
+            <a href="#tutorial">Tutorial</a>
+            <a href="#feedback">Feedback</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">Login</button>
+            <button class="btn btn-primary" id="registerBtn">Register</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Complete Your Fonts With <span>AI</span></h1>
+            <p>Upload your font, and Fontmorph-AI will intelligently generate missing glyphs for any language or character set</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" id="heroLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login to Start
+                </button>
+                <button class="btn btn-outline" id="heroDemoBtn">
+                    <i class="fas fa-eye"></i> View Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2 class="section-title scroll-reveal">How It Works</h2>
+        <div class="features-grid">
+            <div class="feature-card scroll-reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Upload Your Font</h3>
+                <p>Upload any TTF or OTF font file with missing glyphs or characters</p>
+            </div>
+            <div class="feature-card scroll-reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Analysis</h3>
+                <p>Our AI analyzes your font's design style and characteristics</p>
+            </div>
+            <div class="feature-card scroll-reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3>Generate Missing Glyphs</h3>
+                <p>Fontmorph generates consistent, high-quality missing characters</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section">
+        <h2 class="section-title scroll-reveal">Ready to Complete Your Font?</h2>
+        <div class="upload-zone scroll-reveal">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <h3>Drag & Drop Your Font Files</h3>
+            <p>Supported formats: TTF, OTF</p>
+            <button class="btn btn-primary" style="margin-top: 1.5rem;" id="uploadFontBtn">
+                <i class="fas fa-upload"></i> Select Font Files
+            </button>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Login to Fontmorph-AI</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <div class="tab active" id="loginTab">Login</div>
+                    <div class="tab" id="registerTab">Register</div>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or continue with</span>
+                    </div>
+                    
+                    <button type="button" class="btn btn-block google-auth" id="googleLogin">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+                        <p><a href="#">Forgot password?</a></p>
+                    </div>
+                </form>
+                
+                <form id="registerForm" style="display: none;">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    
+                    <div class="divider">
+                        <span>or continue with</span>
+                    </div>
+                    
+                    <button type="button" class="btn btn-block google-auth" id="googleRegister">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                    
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const authModal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const heroLoginBtn = document.getElementById('heroLoginBtn');
+        const closeModal = document.querySelector('.close-modal');
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const modalTitle = document.getElementById('modalTitle');
+        const uploadFontBtn = document.getElementById('uploadFontBtn');
+        const googleLogin = document.getElementById('googleLogin');
+        const googleRegister = document.getElementById('googleRegister');
+
+        // Modal functionality
+        function openModal(formType = 'login') {
+            authModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            if (formType === 'register') {
+                showRegisterForm();
+            } else {
+                showLoginForm();
+            }
+        }
+
+        function closeModalFunc() {
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showLoginForm() {
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            modalTitle.textContent = 'Login to Fontmorph-AI';
+        }
+
+        function showRegisterForm() {
+            loginTab.classList.remove('active');
+            registerTab.classList.add('active');
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            modalTitle.textContent = 'Create an Account';
+        }
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => openModal('login'));
+        registerBtn.addEventListener('click', () => openModal('register'));
+        heroLoginBtn.addEventListener('click', () => openModal('login'));
+        closeModal.addEventListener('click', closeModalFunc);
+        
+        // Close modal when clicking outside content
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                closeModalFunc();
+            }
+        });
+        
+        // Tab switching
+        loginTab.addEventListener('click', showLoginForm);
+        registerTab.addEventListener('click', showRegisterForm);
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            showRegisterForm();
+        });
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            showLoginForm();
+        });
+
+        // Form submissions
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            loginUser(email, password);
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            registerUser(name, email, password);
+        });
+
+        // Google login
+        googleLogin.addEventListener('click', loginWithGoogle);
+        googleRegister.addEventListener('click', loginWithGoogle);
+
+        // Upload button
+        uploadFontBtn.addEventListener('click', () => {
+            alert('Please login to upload fonts');
+            openModal('login');
+        });
+
+        // Auth Functions (Simulated)
+        function loginUser(email, password) {
+            // In a real app, this would connect to Firebase Auth
+            console.log(`Logging in with email: ${email}, password: ${password}`);
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                alert(`Welcome back, ${email}!`);
+                
+                // Update UI for logged in user
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <div class="user-profile">
+                        <div class="user-avatar">${email.charAt(0).toUpperCase()}</div>
+                        <div class="user-name">${email}</div>
+                    </div>
+                    <button class="btn btn-outline" id="logoutBtn">Logout</button>
+                `;
+                
+                // Add logout functionality
+                document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+                
+                closeModalFunc();
+            }, 1000);
+        }
+
+        function registerUser(name, email, password) {
+            // In a real app, this would connect to Firebase Auth
+            console.log(`Registering: ${name}, ${email}, ${password}`);
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                alert(`Welcome to Fontmorph-AI, ${name}! Your account has been created.`);
+                
+                // Update UI for logged in user
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <div class="user-profile">
+                        <div class="user-avatar">${name.charAt(0).toUpperCase()}</div>
+                        <div class="user-name">${name}</div>
+                    </div>
+                    <button class="btn btn-outline" id="logoutBtn">Logout</button>
+                `;
+                
+                // Add logout functionality
+                document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+                
+                closeModalFunc();
+            }, 1000);
+        }
+
+        function loginWithGoogle() {
+            // Simulate Google login
+            console.log('Logging in with Google');
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                alert('Successfully logged in with Google!');
+                
+                // Update UI for logged in user
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <div class="user-profile">
+                        <div class="user-avatar">U</div>
+                        <div class="user-name">user@example.com</div>
+                    </div>
+                    <button class="btn btn-outline" id="logoutBtn">Logout</button>
+                `;
+                
+                // Add logout functionality
+                document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+                
+                closeModalFunc();
+            }, 1000);
+        }
+
+        function logoutUser() {
+            // Reset UI
+            document.querySelector('.auth-buttons').innerHTML = `
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+            `;
+            
+            // Reattach event listeners
+            document.getElementById('loginBtn').addEventListener('click', () => openModal('login'));
+            document.getElementById('registerBtn').addEventListener('click', () => openModal('register'));
+            
+            alert('You have been logged out.');
+        }
+
+        // Scroll reveal animations
+        const scrollReveal = document.querySelectorAll('.scroll-reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        scrollReveal.forEach((element) => {
+            observer.observe(element);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
